@@ -1,0 +1,916 @@
+/* ============================
+   基本設定
+============================ */
+@charset "UTF-8";
+
+body {
+    font-family: "Noto Serif JP", serif;
+    color: #222;
+    background: #f7f6f2;
+    margin: 0;
+    padding: 0;
+    line-height: 1.9;
+    letter-spacing: 0.03em;
+    background: url("img/washi-texture.jpg") repeat;
+    background-attachment: fixed;
+    background-size: contain;
+    opacity: 0;
+    animation: fadePageIn 1.5s ease forwards;
+}
+
+@keyframes fadePageIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* フォント・アクセントカラー */
+:root {
+    --accent: #bfa980;
+    --bg: #f7f6f2;
+    --ink: #222;
+    --subtext: #555;
+}
+
+/* ============================
+   ヘッダー
+============================ */
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(247, 246, 242, 0.9);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(191, 169, 128, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 40px;
+    /* ← 左右余白を減らして切れ防止 */
+    z-index: 100;
+    transition: all 0.3s;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    /* ← 横スクロール防止 */
+}
+
+/* ロゴ */
+.logo {
+    font-family: "Shippori Mincho", "Yu Mincho", serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    white-space: nowrap;
+}
+
+/* ナビゲーション */
+.g-nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    /* ← 小画面で折り返し許可 */
+    gap: 28px;
+    /* ← 間隔少し詰める */
+    margin: 0;
+    padding: 0;
+}
+
+.g-nav a {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.95rem;
+    position: relative;
+    transition: color 0.3s;
+    white-space: nowrap;
+    /* ← 文字折れ防止 */
+}
+
+.g-nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.3s;
+}
+
+.g-nav a:hover::after {
+    width: 100%;
+}
+
+/* ============================
+   スマホ対応
+============================ */
+@media screen and (max-width: 992px) {
+    #header {
+        flex-direction: column;
+        padding: 12px 20px;
+        text-align: center;
+    }
+
+    .g-nav ul {
+        justify-content: center;
+        gap: 20px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .g-nav a {
+        font-size: 0.9rem;
+    }
+
+    .logo {
+        font-size: 1.3rem;
+    }
+}
+
+/* ============================
+   メインビジュアル
+============================ */
+#main-visual {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+    background: url("img/main-bg.jpg") center center / cover no-repeat fixed;
+}
+
+#main-visual::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    mix-blend-mode: multiply;
+    z-index: 1;
+}
+
+.main-copy {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    padding: 0 20px;
+    animation: fadeInMain 2s ease-out;
+}
+
+/* 🔸 サイトタイトル（最も大きく） */
+.site-title {
+    font-family: "Shippori Mincho", serif;
+    font-size: clamp(2.8rem, 6vw, 4rem);
+    /* ← 大きく拡張 */
+    letter-spacing: 0.2em;
+    color: #f7f6f2;
+    margin-bottom: 0.6em;
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+    line-height: 1.4;
+}
+
+/* 🔸 キャッチコピー（控えめで上品） */
+.catch {
+    font-family: "Noto Serif JP", serif;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    /* ← 少し小さく控えめに */
+    letter-spacing: 0.08em;
+    color: #d9c8a1;
+    margin-bottom: 1.4em;
+    font-weight: 400;
+}
+
+/* 🔸 サブテキスト（補足） */
+.sub {
+    font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+    color: #eee;
+    line-height: 2;
+    margin-bottom: 2.8em;
+}
+
+/* ボタン */
+.btn {
+    display: inline-block;
+    padding: 14px 38px;
+    border: 1px solid #fff;
+    color: #fff;
+    border-radius: 50px;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(2px);
+}
+
+.btn:hover {
+    background: #bfa980;
+    border-color: #bfa980;
+    color: #fff;
+}
+
+/* アニメーション */
+@keyframes fadeInMain {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* スマホ対応 */
+@media screen and (max-width: 768px) {
+    .site-title {
+        font-size: clamp(2.2rem, 8vw, 2.8rem);
+        line-height: 1.4;
+    }
+
+    .catch {
+        font-size: clamp(1rem, 4.5vw, 1.4rem);
+    }
+
+    .sub {
+        font-size: 0.9rem;
+    }
+}
+
+/* ============================
+   スクロール誘導アニメーション
+============================ */
+.scroll-down {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #d9c8a1;
+    font-family: "Shippori Mincho", serif;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    opacity: 0.95;
+    animation: fadeInScroll 2s ease-in 1.5s both;
+    z-index: 3;
+}
+
+/* 「Scroll」文字 */
+.scroll-down span {
+    display: block;
+    margin-bottom: 14px;
+    text-shadow: 0 0 10px rgba(217, 200, 161, 0.6);
+    /* 柔らかい光彩 */
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+/* 下向きの矢印ライン */
+.scroll-down .arrow {
+    position: relative;
+    width: 2px;
+    height: 55px;
+    /* 少し長めにして存在感アップ */
+    margin: 0 auto;
+    background: linear-gradient(to bottom, rgba(217, 200, 161, 0) 0%, #d9c8a1 60%, rgba(217, 200, 161, 0) 100%);
+    animation: arrowMove 2s ease-in-out infinite;
+}
+
+/* 矢印の先端（ゴールドのV字） */
+.scroll-down .arrow::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -6px;
+    width: 12px;
+    height: 12px;
+    border-left: 2px solid #d9c8a1;
+    border-bottom: 2px solid #d9c8a1;
+    transform: rotate(-45deg);
+    animation: arrowTipGlow 2s ease-in-out infinite;
+}
+
+/* フェードイン */
+@keyframes fadeInScroll {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* ゆらめく光 */
+@keyframes shimmer {
+
+    0%,
+    100% {
+        text-shadow: 0 0 8px rgba(217, 200, 161, 0.5);
+    }
+
+    50% {
+        text-shadow: 0 0 18px rgba(255, 240, 200, 0.9);
+    }
+}
+
+/* 下にゆっくり動く矢印 */
+@keyframes arrowMove {
+
+    0%,
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(10px);
+        opacity: 0.7;
+    }
+}
+
+/* 矢印先端の淡い光 */
+@keyframes arrowTipGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 6px rgba(255, 230, 180, 0.6);
+    }
+
+    50% {
+        box-shadow: 0 0 14px rgba(255, 255, 220, 0.9);
+    }
+}
+
+
+/* ============================
+   セクション共通
+============================ */
+.section {
+    max-width: 1000px;
+    margin: 120px auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-family: "Shippori Mincho", serif;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 50px;
+    color: var(--ink);
+}
+
+.section-title::after {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: all 0.8s ease 0.2s;
+}
+
+/* スマホ用 */
+@media screen and (max-width: 768px) {
+    .section {
+        margin: 80px auto;
+        padding: 0 15px;
+    }
+}
+
+/* ============================
+   コンセプト
+============================ */
+#concept {
+    background: linear-gradient(to bottom, #f7f6f2, #f3f1ec);
+    padding: 120px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+#concept::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("img/washi-minimal-bg.jpg") center/cover no-repeat;
+    opacity: 0.15;
+}
+
+.concept-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#concept .section-title {
+    color: #222;
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+    letter-spacing: 0.15em;
+}
+
+.concept-lead {
+    font-size: 1.05rem;
+    line-height: 2.4;
+    color: #444;
+    letter-spacing: 0.05em;
+    position: relative;
+}
+
+.concept-lead::before {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: #bfa980;
+    margin: 0 auto 30px;
+}
+
+/* ============================
+   レッスン紹介
+============================ */
+#lesson {
+    background: #f7f6f2;
+    padding: 120px 20px;
+}
+
+.lesson-list {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* 各カード */
+.lesson-item {
+    flex: 1 1 calc(33.333% - 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* テキストの上下バランス */
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(191, 169, 128, 0.25);
+    transition: transform 0.6s ease, box-shadow 0.6s ease;
+    min-height: 430px;
+    /* ✅ 高さをある程度固定（見た目の均一化） */
+}
+
+.lesson-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+/* 画像部分 */
+.lesson-img img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 1s ease;
+}
+
+.lesson-item:hover .lesson-img img {
+    transform: scale(1.05);
+}
+
+/* テキスト部分 */
+.lesson-content {
+    flex: 1;
+    padding: 30px 25px 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.lesson-content h3 {
+    font-family: "Shippori Mincho", serif;
+    font-size: 1.2rem;
+    color: #bfa980;
+    margin-bottom: 0.8em;
+}
+
+.lesson-content p {
+    font-size: 0.95rem;
+    color: #333;
+    line-height: 1.9;
+    letter-spacing: 0.03em;
+}
+
+/* ============================
+   レスポンシブ調整
+============================ */
+@media screen and (max-width: 992px) {
+    .lesson-item {
+        flex: 1 1 calc(50% - 30px);
+        min-height: 420px;
+        /* ✅ 2カラム時も高さ統一 */
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .lesson-item {
+        flex: 1 1 100%;
+        min-height: 400px;
+        /* ✅ スマホ縦並び時も均一化 */
+    }
+
+    .lesson-img img {
+        height: 200px;
+    }
+}
+
+/* ============================
+   ギャラリー
+============================ */
+#gallery {
+    background: #f3f1ec;
+    padding: 100px 20px;
+    position: relative;
+}
+
+/* スライダー本体 */
+.gallery-slider {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    aspect-ratio: 16 / 14;
+    /* ← 全画像比率にフィット */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 各スライド */
+.slide {
+    display: none;
+    width: 100%;
+    height: 100%;
+    transition: opacity 1s ease;
+}
+
+.slide.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeSlide 1.2s ease;
+}
+
+/* 画像設定（白余白ゼロ・文字切れ防止） */
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* ← 上下の白余白を完全になくす */
+    object-position: center 60%;
+    /* ← やや下寄せで筆文字を見やすく */
+    border-radius: 10px;
+    background-color: #fff;
+    transition: transform 1s ease, filter 1s ease;
+    transform: scale(0.96);
+    /* ← わずかに縮小して文字切れ防止 */
+}
+
+/* アクティブ時の効果 */
+.slide.active img {
+    transform: scale(1);
+    filter: brightness(1) grayscale(0%);
+}
+
+/* スライド切替アニメーション */
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: scale(1.02);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* コントロール矢印 */
+.gallery-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.gallery-controls span {
+    pointer-events: all;
+    cursor: pointer;
+    color: #bfa980;
+    font-size: 2rem;
+    padding: 10px 20px;
+    transition: opacity 0.3s;
+}
+
+.gallery-controls span:hover {
+    opacity: 0.7;
+}
+
+/* スマホ対応 */
+@media screen and (max-width: 768px) {
+    .gallery-slider {
+        aspect-ratio: 4 / 3;
+        /* ← 縦比をやや高めに */
+    }
+
+    .slide img {
+        transform: scale(0.94);
+        /* ← 小画面では少し余裕をもたせる */
+    }
+}
+
+/* ============================
+   講師紹介
+============================ */
+#teacher {
+    background: #fff;
+    padding: 140px 20px;
+}
+
+.teacher-profile {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* 画像スタイル */
+.teacher-img img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #bfa980;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 1s ease;
+}
+
+.teacher-img img:hover {
+    transform: scale(1.02);
+}
+
+/* テキスト部分 */
+.teacher-text {
+    max-width: 480px;
+    color: #444;
+    line-height: 2.2;
+    letter-spacing: 0.03em;
+    text-align: left;
+}
+
+.teacher-text h3 {
+    font-family: "Shippori Mincho", serif;
+    color: #bfa980;
+    font-size: 1.5rem;
+    margin-bottom: 1.5em;
+    letter-spacing: 0.1em;
+}
+
+/* 引用風メッセージ */
+.teacher-text blockquote {
+    font-family: "Noto Serif JP", serif;
+    font-size: 1rem;
+    color: #333;
+    background: #f8f7f4;
+    padding: 25px 30px;
+    border-left: 3px solid #bfa980;
+    border-radius: 8px;
+    margin: 0 0 1.8em;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* 署名 */
+.signature {
+    font-family: "Alex Brush", cursive;
+    font-size: 1.4rem;
+    color: #bfa980;
+    text-align: right;
+    margin-top: 1.2em;
+}
+
+/* スマホ対応 */
+@media screen and (max-width: 768px) {
+    .teacher-profile {
+        flex-direction: column;
+        gap: 50px;
+    }
+
+    .teacher-text {
+        text-align: center;
+    }
+
+    .teacher-text blockquote {
+        border-left: none;
+        border-top: 2px solid #bfa980;
+    }
+
+    .signature {
+        text-align: center;
+    }
+}
+
+
+/* ============================
+   アクセス・お問い合わせ（最適化）
+============================ */
+#contact {
+    background: #f7f6f2;
+    padding: 120px 20px;
+}
+
+.access-wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+/* 左側：アクセス情報 */
+.access-info {
+    flex: 1 1 45%;
+    background: #fff;
+    border: 1px solid rgba(191, 169, 128, 0.2);
+    border-radius: 12px;
+    padding: 35px 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.access-info h3 {
+    font-family: "Shippori Mincho", serif;
+    font-size: 1.3rem;
+    color: #bfa980;
+    margin-bottom: 20px;
+}
+
+.access-info p {
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 0.95rem;
+    line-height: 1.9;
+}
+
+.map iframe {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-top: 15px;
+    width: 100%;
+    height: 260px;
+}
+
+/* 右側：お問い合わせフォーム */
+.contact-form {
+    flex: 1 1 45%;
+    background: #fff;
+    border: 1px solid rgba(191, 169, 128, 0.2);
+    border-radius: 12px;
+    padding: 35px 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid rgba(191, 169, 128, 0.3);
+    border-radius: 6px;
+    background: #fdfdfd;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #bfa980;
+    outline: none;
+    box-shadow: 0 0 6px rgba(191, 169, 128, 0.3);
+}
+
+.contact-form button {
+    align-self: center;
+    background: #bfa980;
+    color: #fff;
+    border: none;
+    padding: 12px 45px;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.contact-form button:hover {
+    background: #a68f65;
+    transform: translateY(-2px);
+}
+
+/* スマホ対応 */
+@media screen and (max-width: 768px) {
+    .access-wrap {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .access-info,
+    .contact-form {
+        flex: 1 1 100%;
+        padding: 25px 20px;
+    }
+
+    .map iframe {
+        height: 220px;
+    }
+}
+
+
+
+/* ============================
+   フェードインアニメーション
+============================ */
+.fadein {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1.4s ease-out;
+}
+
+
+.fadein.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.fadein.show .section-title::after {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+/* ============================
+   フッター
+============================ */
+#footer {
+    background: var(--ink);
+    color: #f2f2f2;
+    text-align: center;
+    padding: 25px 0;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+/* ============================
+   レスポンシブ
+============================ */
+@media screen and (max-width: 768px) {
+    #header {
+        flex-direction: column;
+        padding: 15px 25px;
+    }
+
+    .g-nav ul {
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    #main-visual h2 {
+        font-size: 1.8rem;
+    }
+
+    .teacher-profile {
+        flex-direction: column;
+    }
+}
