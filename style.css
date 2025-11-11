@@ -228,7 +228,6 @@ body {
     .site-title {
         font-size: clamp(2.1rem, 8vw, 2.8rem);
         line-height: 1.4;
-        margin-top: 80px;
     }
 
     .catch {
@@ -237,6 +236,10 @@ body {
 
     .sub {
         font-size: 0.9rem;
+    }
+
+    .btn {
+        margin-bottom: 70px;
     }
 }
 
@@ -343,6 +346,22 @@ body {
 
     50% {
         box-shadow: 0 0 14px rgba(255, 255, 220, 0.9);
+    }
+}
+
+/* スマホ用 */
+@media screen and (max-width: 768px) {
+    .scroll-down {
+        bottom: 20px;
+        transform: translateX(-50%) translateY(10px);
+    }
+
+    .scroll-down span {
+        margin-bottom: 12px;
+    }
+
+    .scroll-down .arrow {
+        height: 45px;
     }
 }
 
